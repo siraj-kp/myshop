@@ -1,0 +1,28 @@
+{% extends 'products/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Products</h1>
+<div class="row">
+    {% for product in products %}
+         <div class="col">
+        <div class="card" style="width: 12rem;">
+            <a class="" href="{% url 'description' %}"> <img src="{{ product.image_url.url }}" class="card-img-top" alt="..."> </a>
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">Rs{{ product.price }}</p>
+
+            </div>
+        </div>
+             <form method="post">
+                 {% csrf_token %}
+                 <input type="submit" value = "Add to Cart!" class="btn btn-outline-primary">
+                 <input type="hidden" name="obj_id" value={{product.id}}>
+             </form>
+    </div>
+
+    {% endfor %}
+</div>
+
+
+{% endblock %}

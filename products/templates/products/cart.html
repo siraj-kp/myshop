@@ -1,0 +1,50 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+
+
+
+
+<style type="text/css">
+  .centerdv
+  {
+  width:45%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  }
+  .imgscale
+  {
+    max-width: 64px;
+    max-height: 64px;
+   }
+</style>
+<div class="p-3 mb-2 bg-dark text-success">
+
+     <div class="container well">
+
+        <div>
+            <h3>Total Price: <br> <br><span class="label label-success">
+                {{total_price}}</span></h3>
+            <br>
+            {% for item in cart_items %}
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object imgscale" src={{item.image_url.url}}/>
+                </a>
+                <div class = "media-body">
+                    <h4 class="media-heading">{{item.name}}</h4>
+                    <span class="badge pull-right">{{item.price}}</span>
+                </div>
+                <form method="post" action="cart/remove">
+                    {% csrf_token %}
+                    <input type="hidden" name="obj_id" value={{item.id}}>
+                    <input type="submit" value="Remove" class="btn btn-outline-danger pull-right">
+                </form>
+            </div>
+        </div>
+            {% endfor %}
+            <button class="btn btn-outline-success btn-lg"  onclick="window.location = 'cart/checkout';">Checkout!</button>
+
+{% endblock %}

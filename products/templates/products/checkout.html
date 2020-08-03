@@ -1,0 +1,78 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+  .jumbotron
+  {
+  width:45%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  }
+   .imgscale
+  {
+    max-width: 64px;
+    max-height: 64px;
+   }
+</style>
+
+
+<div class="jumbotron">
+
+<h2>Confirm Items</h2>
+
+    <div class = "well">
+        <form method="post" action="checkout/complete" class = "centerdv">
+            {% csrf_token %}
+
+      {% for item in cart_items %}
+
+                <div class = "media-body">
+
+                 <h3>    <input type="checkbox" name = "item_name" value="{{item.name}}">
+                     {{item.name}}</h3>
+                   
+                    <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object imgscale" src={{item.image_url}}/>
+                </a>
+
+                </div>
+               </div>
+            {% endfor %}
+            <h2>Confirm Total</h2>
+            <h4> <input type="radio" name = "total" value="{{total_price}}">
+                {{total_price}}</h4>
+            <h4>Billing Information</h4>
+            <b>First Name</b>
+            <input type = "text" name = "first_name" class="form-control">
+            <br>
+            <b>Last Name</b>
+            <input type = "text" name = "last_name" class="form-control">
+            <br>
+            <b>Address</b>
+            <input type = "text" name = "address" class="form-control">
+            <br>
+            <b>City</b>
+            <input type = "text" name = "city" class="form-control">
+            <br>
+            <b>Phone</b>
+            <input type = "text" name = "phone" class="form-control">
+            <br>
+
+            <h4>Payment Information</h4>
+            <br>
+            <b>Payment Type: </b>
+            <br>
+            <input type="radio" name = "payment" value="cod">
+            Cash on Delivery
+            <br>
+
+            <input type="submit" value="Complete Order!" class="btn btn-success">
+
+
+        </form>
+    </div>
+
+{% endblock %}
